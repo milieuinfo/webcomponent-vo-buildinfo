@@ -6,7 +6,7 @@ import { LitElement, html } from "./assets/@polymer/lit-element/lit-element.js";
  *
  * @customElement
  * @polymer
- * @demo demo/index.html
+ * @demo demo/vo-buildinfo.html
  */
 class VoBuildversie extends LitElement {
 	render() {
