@@ -13,7 +13,7 @@ class VoBuildinfo extends LitElement {
 	static get properties() {
 		return {
 			/**
-			 * URL waar de build informatie staat.
+			 * URL waar de build informatie staat | `{'admin/info'}`.
 			 */
 			url: String,
 			/**
