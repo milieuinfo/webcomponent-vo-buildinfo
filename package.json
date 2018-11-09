@@ -12,23 +12,20 @@
     "demo": "demo"
   },
   "devDependencies": {
-    "@0xcda7a/empathy": "0.0.9",
     "np": "3.0.4",
     "wct-browser-legacy": "1.0.2"
   },
   "scripts": {
     "clean": "rm -rf build node_modules build bower_components etc node",
     "build": "npm run build:dist",
-    "build:docs": "polymer analyze dist/vo-buildinfo.js > analysis.json",
+    "build:docs": "polymer analyze > analysis.json",
     "build:dist": "polymer build",
     "build:local": "npm run clean && bower install && npm install && npm run test && npm run build:dist && npm run build:docs",
-    "build:empathy": "empathy install",
     "dev": "browser-sync start --proxy localhost:8080 --startPath / --serveStatic . --files .",
     "test": "polymer test -l chrome,firefox --expanded",
     "test:chrome": "polymer test -l chrome --expanded",
     "test:firefox": "polymer test -l firefox --expanded",
-    "release": "np --yolo",
-    "prepublish": "empathy publish vo-buildinfo.js"
+    "release": "np --yolo"
   },
   "publishConfig": {
     "registry": "http://artifactory-pr-build.lb.cumuli.be:8081/artifactory/api/npm/acd-npm/"
@@ -44,10 +41,9 @@
   },
   "main": "vo-buildinfo.js",
   "dependencies": {
-    "@polymer/lit-element": "0.6.2",
     "@polymer/iron-demo-helpers": "3.0.2",
-    "@polymer/iron-component-page": "4.0.1",
     "@webcomponents/webcomponentsjs": "2.1.3",
-    "vodomg-demo": "milieuinfo/webcomponent-vodomg-demo#v1.0.0"
+    "vodomg-demo": "milieuinfo/webcomponent-vodomg-demo",
+    "vodomg-litelement": "milieuinfo/webcomponent-vodomg-litelement"
   }
 }

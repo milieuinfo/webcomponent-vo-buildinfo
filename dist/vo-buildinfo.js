@@ -1,14 +1,14 @@
 import { LitElement, html } from "@polymer/lit-element/lit-element";
 
 /**
- * `vo-buildversie`
- * Visualiseert de build versie van de applicatie.
+ * `vo-buildinfo`
+ * Visualiseert de build informatie van de applicatie.
  *
  * @customElement
  * @polymer
- * @demo demo/index.html
+ * @demo demo/vo-buildinfo.html
  */
-class VoBuildversie extends LitElement {
+class VoBuildinfo extends LitElement {
   render() {
     return html`
 			
@@ -16,4 +16,4 @@ class VoBuildversie extends LitElement {
   }
 }
 
-customElements.define('vo-buildversie', VoBuildversie);
+customElements.define('vo-buildinfo', VoBuildinfo);
