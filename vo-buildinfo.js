@@ -44,7 +44,7 @@ class VoBuildinfo extends LitElement {
 
     updated(changedProperties) {
         if (changedProperties.has('url')) {
-            this._computeBuildinfo();
+           	this._computeBuildinfo();
         }
     }
 
@@ -69,7 +69,7 @@ class VoBuildinfo extends LitElement {
     static async _fetchInfo(url) {
         if (url) {
             var response = await fetch(url);
-            if (response.json) {
+            if (response && response.json) {
                 var json = await response.json();
                 return {
                     versie: json.build.version,
