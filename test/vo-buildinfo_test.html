@@ -62,6 +62,7 @@
             const url = 'http://www.google.be';
             element.url = url;
 			await element.updateComplete;
+            assert(fetchStub.calledWith(url));
         });
     });
 </script>
