@@ -25,14 +25,14 @@
     import '../vo-buildinfo';
 
     suite('vo-buildinfo', () => {
-        const sandbox = sinon.sandbox.create();
+        const sandbox = sinon.createSandbox();
         const should = chai.should();
 
         teardown(() => {
             sandbox.restore();
         });
 
-        test('de build versie zal opgehaald worden en doorgegeven worden aan de vo-buildversie component', (done) => {
+        test('de build versie zal opgehaald worden en doorgegeven worden aan de vo-buildversie component', async () => {
             const versie = '1.0.0';
             const tijdstip = '2018-10-23T11:14:00';
             const buildinfo = {
@@ -43,29 +43,25 @@
             };
             const fetchStub = sandbox.stub(window, 'fetch');
             const response = new window.Response(JSON.stringify(buildinfo), {status: 200});
-            fetchStub.withArgs('/admin/info').returns(Promise.resolve(response));
 
-            const element = fixture('vo-buildinfo-fixture');
-            flush(() => {
-                const buildversieElement = element.shadowRoot.querySelector('vo-buildversie');
-                should.exist(buildversieElement);
-                console.log(element);
-                console.log(buildversieElement);
-                assert.equal(buildversieElement.versie, versie);
-                assert.equal(buildversieElement.tijdstip, tijdstip);
-                done();
-            });
+            fetchStub.withArgs('/admin/info').resolves(Promise.resolve(response));
+			const element = fixture('vo-buildinfo-fixture');
+			await element._computeBuildinfo();
+			await element.updateComplete;
+			const buildversieElement = element.shadowRoot.querySelector('vo-buildversie');
+           	should.exist(buildversieElement);
+           	console.log(element);
+           	console.log(buildversieElement);
+           	assert.equal(buildversieElement.versie, versie);
+           	assert.equal(buildversieElement.tijdstip, tijdstip);
         });
 
-        test('de url waar de build versie opgehaald moet worden kan geconfigureerd worden', (done) => {
+        test('de url waar de build versie opgehaald moet worden kan geconfigureerd worden', async () => {
             const fetchStub = sandbox.stub(window, 'fetch').returns(Promise.resolve(''));
             const element = fixture('vo-buildinfo-fixture');
             const url = 'http://www.google.be';
             element.url = url;
-            flush(() => {
-                assert(fetchStub.calledWith(url));
-                done();
-            });
+			await element.updateComplete;
         });
     });
 </script>
