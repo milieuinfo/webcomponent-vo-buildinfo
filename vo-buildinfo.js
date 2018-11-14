@@ -25,7 +25,7 @@ class VoBuildinfo extends LitElement {
 			_tijdstip: String
 		};
 	}
-	
+
 	constructor() {
 		super();
 		this.url = this.url || '/admin/info';
@@ -37,22 +37,58 @@ class VoBuildinfo extends LitElement {
 	 * @return {TemplateResult}
 	 */
 	render() {
-		this._computeBuildinfo();
-		
 		return html`
 			<vo-buildversie versie=${this._versie ? this._versie : ''} tijdstip=${this._tijdstip ? this._tijdstip : ''}></vo-buildversie>
 		`;
+	}
+
+	updated(changedProperties) {
+		if(changedProperties.has('url')) {
+			this._computeBuildinfo();
+        }
+    }
+
+    /**
+	 * Zet de build `_versie` en build `_tijdstip` attributen op undefined.
+     */
+    _clearInfo() {
+        this._setInfo(undefined, undefined);
+    }
+
+    /**
+	 * Zet de build `_versie` en build `_tijdstip` attributen.
+     */
+    _setInfo(versie, tijdstip) {
+        this._versie = versie;
+        this._tijdstip = tijdstip;
+	}
+
+    /**
+     * Haalt de build informatie op.
+     */
+	static async _fetchInfo(url) {
+		if(url) {
+            var response = await fetch(url);
+            if (response.json) {
+                var json = await response.json();
+                return {
+                    versie: json.build.version,
+                    tijdstip: json.build.time
+                };
+            }
+        }
 	}
 	
 	/**
 	 * Haalt de build informatie op en zet de build `_versie` en build `_tijdstip` attributen.
 	 */
 	async _computeBuildinfo() {
-		var response = await fetch(this.url);
-		var json = await response.json();
-		if (json && json.build) {
-			this._versie = json.build.version;
-			this._tijdstip = json.build.time;
+		const info = await VoBuildinfo._fetchInfo(this.url);
+
+		if(info) {
+			this._setInfo(info.versie, info.tijdstip);
+		} else {
+            this._clearInfo();
 		}
 	}
 }
