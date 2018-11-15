@@ -45,22 +45,22 @@
             const response = Promise.resolve(new window.Response(JSON.stringify(buildinfo), {status: 200}));
 
             fetchStub.withArgs('/admin/info').resolves(Promise.resolve(response));
-			const element = fixture('vo-buildinfo-fixture');
-			let buildversieElement;
-			element.updateComplete.then(() => {
-			var waitForAsyncness = function() {
-				buildversieElement = element.shadowRoot.querySelector('vo-buildversie');
-					if (!buildversieElement.versie) {
-						setTimeout(waitForAsyncness, 500);
-					} else {
-           				should.exist(buildversieElement);
-						assert.equal(buildversieElement.versie, versie);
-			        	assert.equal(buildversieElement.tijdstip, tijdstip);
-						done();
-					}
-				};
-				waitForAsyncness();	
-			});
+            const element = fixture('vo-buildinfo-fixture');
+            let buildversieElement;
+            element.updateComplete.then(() => {
+                var waitForAsyncness = function () {
+                    buildversieElement = element.shadowRoot.querySelector('vo-buildversie');
+                    if (!buildversieElement.versie) {
+                        setTimeout(waitForAsyncness, 500);
+                    } else {
+                        should.exist(buildversieElement);
+                        assert.equal(buildversieElement.versie, versie);
+                        assert.equal(buildversieElement.tijdstip, tijdstip);
+                        done();
+                    }
+                };
+                waitForAsyncness();
+            });
         });
 
         test('de url waar de build versie opgehaald moet worden kan geconfigureerd worden', async () => {
@@ -68,8 +68,8 @@
             const element = fixture('vo-buildinfo-fixture');
             const url = 'http://www.google.be';
             element.url = url;
-			await element.updateComplete;
-			assert(fetchStub.calledWith(url));
+            await element.updateComplete;
+            assert(fetchStub.calledWith(url));
         });
     });
 </script>

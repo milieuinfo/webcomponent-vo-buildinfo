@@ -44,7 +44,7 @@ class VoBuildinfo extends LitElement {
 
     updated(changedProperties) {
         if (changedProperties.has('url')) {
-           	this._computeBuildinfo();
+            this._computeBuildinfo();
         }
     }
 
