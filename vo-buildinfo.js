@@ -51,7 +51,6 @@ class VoBuildinfo extends LitElement {
 		var response = await fetch(this.url);
 		var json = await response.json();
 		if (json && json.build) {
-			console.log(json);
 			this._versie = json.build.version;
 			this._tijdstip = json.build.time;
 		}
